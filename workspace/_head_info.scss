@@ -1,0 +1,84 @@
+.head_info {
+    grid-row: 1 / 4;
+    grid-column: 1 / 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: url(/result/img/background_frog.png) no-repeat;
+    width: 804px;
+    height: 589px;
+    .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+        padding: 48px 39px;
+        gap: 15px;
+        color: $color6;
+        font-family: Inter;
+        .veter {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h1 {
+            font-size: 128px;
+        }
+        h2 {
+            font-size: 36px;
+        }
+        h3 {
+            font-size: 24px;
+        }
+        p {
+            font-size: 14px;
+        }
+    }
+    .sun {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        align-items: start;
+    }
+}
+@media screen and (max-width: 1370px) {
+    .head_info {
+        grid-row: 1 / 2;
+        grid-column: 1 / 1;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .head_info {
+        grid-row: 1 / 1;
+    }
+}
+@media screen and (max-width: 540px) {
+    .head_info {
+        margin-left: 0px;
+        max-height: 318px;
+        max-width: 430px;
+        grid-row: 2 / 2;
+        background: url(/result/img/background_frog_small.png) center no-repeat;
+        .sun img {
+            width: 150px;
+            height: 150px;
+        }
+        .info {
+            padding: 48px 39px;
+            h1 {
+                font-size: 64px;
+            }
+            h2 {
+                font-size: 20px;
+            }
+            h3 {
+                font-size: 18px;
+            }
+            p {
+                display: none;
+            }
+            img {
+                display: none;
+            }
+        }
+    }
+}
