@@ -3,3 +3,54 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+    .error {
+        height: 100%;
+        width: 100%;
+        background: url(/result/img/404.png) no-repeat;
+        background-size: 100%;
+
+        .text {
+            margin: 30vh auto;
+            margin-bottom: 40vh;
+
+            h1,
+            p {
+                color: #FFF;
+                text-align: center;
+                font-family: Inter;
+                line-height: 32px;
+            }
+
+            h1 {
+                font-size: 64px;
+                font-weight: 600;
+                margin-bottom: 45px;
+            }
+
+            p {
+                font-size: 24px;
+                font-weight: 400;
+            }
+        }
+
+        .button {
+            margin: 0 auto;
+            padding: 25px 25px;
+            border-radius: 40px;
+            border: 1px solid rgba($color: #fff, $alpha: 0.3);
+            background-color: rgba($color: $color2, $alpha: 0.3);
+            width: 35vh;
+            cursor: pointer;
+            p {
+                color: #FFF;
+                text-align: center;
+                font-family: Inter;
+                font-size: 20px;
+                font-weight: 600;
+                line-height: 16px;
+            }
+        }
+    }
+}

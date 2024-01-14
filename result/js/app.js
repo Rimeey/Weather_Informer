@@ -10,13 +10,21 @@ export default class Weather {
     }
 
     click_today() {
+        this.header_p[1].style.color = null;
         this.header_p[0].style.color = '#C8A0FC';
         this.today.get_city_info();
     }
+    
+    click_days() {
+        this.header_p[0].style.color = null;
+        this.header_p[1].style.color = '#C8A0FC';
+    }
 
     init() {
+        this.header_p[0].style.color = '#C8A0FC';
         this.today.init();
         this.header_p[0].addEventListener('click', this.click_today.bind(this));
+        this.header_p[1].addEventListener('click', this.click_days.bind(this));
     }
 }
 new Weather().init();

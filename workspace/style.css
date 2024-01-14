@@ -6,6 +6,50 @@
           box-sizing: border-box;
 }
 
+body .error {
+  height: 100%;
+  width: 100%;
+  background: url(/result/img/404.png) no-repeat;
+  background-size: 100%;
+}
+body .error .text {
+  margin: 30vh auto;
+  margin-bottom: 40vh;
+}
+body .error .text h1,
+body .error .text p {
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  line-height: 32px;
+}
+body .error .text h1 {
+  font-size: 64px;
+  font-weight: 600;
+  margin-bottom: 45px;
+}
+body .error .text p {
+  font-size: 24px;
+  font-weight: 400;
+}
+body .error .button {
+  margin: 0 auto;
+  padding: 25px 25px;
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background-color: rgba(27, 31, 41, 0.3);
+  width: 35vh;
+  cursor: pointer;
+}
+body .error .button p {
+  color: #FFF;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 16px;
+}
+
 .header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -279,6 +323,21 @@
 }
 .wrapper .search .area input::placeholder {
   color: #fff;
+}
+.wrapper .search .area input:focus::-webkit-input-placeholder {
+  color: #B0B0B0;
+}
+.wrapper .search .area input:focus::-moz-placeholder {
+  color: #B0B0B0;
+}
+.wrapper .search .area input:focus:-ms-input-placeholder {
+  color: #B0B0B0;
+}
+.wrapper .search .area input:focus::-ms-input-placeholder {
+  color: #B0B0B0;
+}
+.wrapper .search .area input:focus::placeholder {
+  color: #B0B0B0;
 }
 .wrapper .search .logo {
   width: 68px;

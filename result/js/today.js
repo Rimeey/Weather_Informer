@@ -7,6 +7,7 @@ export default class Today {
         this.header_p = document.querySelectorAll('.header .left p');
         this.head_info = document.querySelector('.head_info');
         this.today = document.querySelector('.today .hours');
+        this.current_city = 'Кременчук';
         this.info = {};
         this.image = {
             200: '11d.png',
@@ -86,22 +87,37 @@ export default class Today {
     }
 
     get_city() {
-        let city = '';
         if (this.city.value === '') {
-            city = this.city.placeholder
+            this.current_city = this.city.placeholder
         } else {
-            city = this.city.value
+            this.current_city = this.city.value
         }
-        return city
     }
 
     get_city_info() {
-        let city = this.get_city();
-        let url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${this.#api}`
+        this.get_city();
+        let url = `http://api.openweathermap.org/geo/1.0/direct?q=${this.current_city}&limit=1&appid=${this.#api}`
         fetch(url)
             .then(response => response.json())
             .then(response => {
                 this.get_weather(response[0].lat, response[0].lon);
+            })
+            .catch(() => {
+                this.head_info.parentElement.style.display = 'flex';
+                this.head_info.parentElement.innerHTML = `
+                <div class="error">
+                    <div class="text">
+                        <h1>OOPS!</h1>
+                        <p>${this.city.value} не знайдено.</p>
+                        <p>Будь ласка введіть інше місце розташування</p>
+                    </div>
+                    <div class="button">
+                        <p>Повернутися на головну</p>
+                    </div>
+                </div>
+                `;
+                let btn = document.querySelector('.button');
+                btn.addEventListener('click', function () { location.reload() });
             })
     }
 
@@ -121,18 +137,19 @@ export default class Today {
                 };
                 this.set_head_info();
                 this.set_today(lat, lon);
+                this.set_city_nears();
             })
     }
 
     set_head_info() {
         let str = `
         <div class="info">
-            <h1>${this.info.temp}</h1>
+            <h1>${this.info.temp}°</h1>
             <h2>${this.info.description}</h2>
             <h3>Відчувається як ${this.info.feels}°</h3>
             <div class="wind">
                 <img src="/result/img/veterok.png" alt="">
-                <p>${this.info.wind} km/h</p>
+                <p>${Math.ceil(this.info.wind)} km/h</p>
             </div>
         </div>
         <div class="image">
@@ -186,7 +203,6 @@ export default class Today {
 
     init() {
         new Weather().click_today();
-        this.header_p[0].style.color = '#C8A0FC';
         this.city.addEventListener('change', this.get_city_info.bind(this));
     }
 }
