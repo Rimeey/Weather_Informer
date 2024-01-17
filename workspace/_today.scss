@@ -1,15 +1,10 @@
 .today {
-    padding: 30px 20px;
+    padding: 30px 20px 0px 20px;
     border: 1px solid rgba($color: $color6, $alpha: 0.3);
     border-radius: 20px;
     grid-row: 2 / 5;
     grid-column: 2 / 2;
     background-color: rgba($color: #1B1F29, $alpha: 0.3);
-
-    img {
-        width: 84px;
-        height: 84px;
-    }
 
     .date {
         display: flex;
@@ -47,35 +42,43 @@
         gap: 40px;
         padding: 10px 0px;
 
+        img {
+            width: 84px;
+            height: 84px;
+        }
+
         .hours_item {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 12px;
 
+            .part,
+            .degrees,
             .time,
             .weather {
-                color: $color6;
                 text-align: center;
                 font-family: Inter;
-                font-size: 20px;
                 font-weight: 400;
                 line-height: 16px;
             }
+
+            .time,
             .weather {
-                text-transform: capitalize;
-                display: block;
-                height: 100%;
+                color: $color6;
+                font-size: 20px;
             }
 
             .part,
             .degrees {
                 color: $color7;
-                text-align: center;
-                font-family: Inter;
                 font-size: 16px;
-                font-weight: 400;
-                line-height: 16px;
+            }
+
+            .weather {
+                text-transform: capitalize;
+                display: block;
+                height: 100%;
             }
         }
     }
@@ -88,24 +91,61 @@
     }
 }
 
-@media screen and (max-width: 1370px) {
+@media screen and (max-width: 430px) {
     .today {
-        grid-row: 3 / 3;
+        grid-row: 4 / 4;
         grid-column: 1 / 1;
-    }
-}
+        max-width: 390px;
+        gap: 0px;
+        padding: 20px 20px 10px 20px;
+        .arrow {
+            height: 0px;
+            position: relative;
+            left: 100%;
+            top: 33%;
+        }
 
-@media screen and (max-width: 540px) {
-    .today {
-        max-width: 410px;
-        margin: 0 10px;
+        .hr {
+            margin-bottom: 0;
+        }
+
+        .date {
+            .text {
+                font-size: 16px;
+            }
+
+            .today_date {
+                font-size: 16px;
+            }
+        }
 
         .hours {
-            flex-direction: column;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr 1fr;
-            gap: 15px;
-            padding: 0px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 20px;
+
+            .hours_item {
+                gap: 5px;
+                img {
+                    width: 48px;
+                    height: 48px;
+                }
+
+                p {
+                    width: 70px;
+                }
+
+                .time,
+                .weather {
+                    font-size: 14px;
+                }
+
+                .part,
+                .degrees {
+                    font-size: 12px;
+                }
+            }
         }
     }
 }

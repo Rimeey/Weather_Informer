@@ -6,11 +6,13 @@
     background-color: $color2;
     position: sticky;
     top: 0;
+
     .left {
         display: flex;
         gap: 15px;
         align-items: center;
     }
+
     p {
         font-family: Inter;
         font-size: 20px;

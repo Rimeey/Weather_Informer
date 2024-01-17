@@ -9,33 +9,19 @@
     @import 'search';
     @import 'today';
     @import 'city_nears';
+    @import 'statements';
 }
+
 @media screen and (max-width: 1410px) {
     .wrapper {
-        grid-template-rows: 0.81fr 0.1fr 1fr;
-    }
-}
-@media screen and (max-width: 1370px) {
-    .wrapper {
-        grid-template-rows: 0.5fr 0.1fr 1fr;
-    }
-}
-@media screen and (max-width: 1200px) {
-    .wrapper {
         grid-template-columns: 1fr;
-        grid-template-rows: 0.5fr 0.1fr 1fr;
+        grid-template-rows: 0.83fr 0.1fr 0.85fr 0.2fr;
     }
 }
-@media screen and (max-width: 540px) {
-    .wrapper {
-        min-width: 430px;
-        grid-template-columns: 1fr;
-        grid-template-rows: 0.1fr 0.4fr 0.5fr;
-        padding: 0;
-    }
-}
+
 @media screen and (max-width: 430px) {
-    .wrapper, .header, .head_info, .today, .search, .city_nears {
-        width: 430px;
+    .wrapper {
+        padding: 18px 20px;
+        grid-template-rows: 0.1fr 1.2fr 0.2fr 0.5fr 0.5fr;
     }
 }

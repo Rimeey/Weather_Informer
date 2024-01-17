@@ -7,6 +7,7 @@ export default class Today {
         this.header_p = document.querySelectorAll('.header .left p');
         this.head_info = document.querySelector('.head_info');
         this.today = document.querySelector('.today .hours');
+        this.wrap = document.querySelector('.wrapper');
         this.current_city = 'Кременчук';
         this.info = {};
         this.image = {
@@ -103,12 +104,20 @@ export default class Today {
                 this.get_weather(response[0].lat, response[0].lon);
             })
             .catch(() => {
-                this.head_info.parentElement.style.display = 'flex';
-                this.head_info.parentElement.innerHTML = `
+                if (window.outerWidth > 431) {
+                    this.wrap.style.backgroundImage = 'url(/result/img/404.png)';
+                    this.wrap.style.backgroundRepeat = 'no-repeat';
+                } else {
+                    this.wrap.style.backgroundImage = 'url(/result/img/404_430.png)';
+                }
+                this.wrap.style.backgroundSize = '100%';
+                this.wrap.style.display = 'flex';
+                this.wrap.innerHTML = `
                 <div class="error">
+                    <img src="/result/img/404_2.png" alt="">
                     <div class="text">
                         <h1>OOPS!</h1>
-                        <p>${this.city.value} не знайдено.</p>
+                        <p>${this.city.value} не знайдено</p>
                         <p>Будь ласка введіть інше місце розташування</p>
                     </div>
                     <div class="button">
@@ -126,6 +135,7 @@ export default class Today {
         fetch(url)
             .then(response => response.json())
             .then(response => {
+                console.dir(response)
                 this.info = {
                     'temp': +response.list[0].main.temp.toFixed(0),
                     'feels': +response.list[0].main.feels_like.toFixed(0),
@@ -133,7 +143,10 @@ export default class Today {
                     'wind': Math.ceil(response.list[0].wind.speed),
                     'temp_min': +response.list[0].main.temp_min.toFixed(0),
                     'temp_max': +response.list[0].main.temp_max.toFixed(0),
-                    'id': +response.list[0].weather[0].id
+                    'id': +response.list[0].weather[0].id,
+                    'humidity': response.list[0].main.humidity,
+                    'probability': response.list[0].pop
+                    
                 };
                 this.set_head_info();
                 this.set_today(lat, lon);
@@ -161,6 +174,7 @@ export default class Today {
     }
 
     set_today(lat, lon) {
+        this.today.innerHTML = '';
         this.today.previousElementSibling.previousElementSibling.children[1].textContent = this.get_date();
         fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=13&lang=ua&units=metric&appid=${this.#api}`)
             .then(response => response.json())
@@ -172,18 +186,18 @@ export default class Today {
                     let id = response.list[i].weather[0].id;
 
                     let str = `
-            <div class="hours_item">
-                <p class="time">${time}</p>
-                <p class="part">${this.set_time_in_today(time)}</p>
-                <img src="/result/img/weather/${this.image[`${id}`]}" alt="">
-                <p class="weather">${response.list[i].weather[0].description}</p>
-                <p class="degrees">${min}° ${max}°</p>
-            </div>
-                `
+                    <div class="hours_item">
+                        <p class="time">${time}</p>
+                        <p class="part">${this.set_time_in_today(time)}</p>
+                        <img src="/result/img/weather/${this.image[`${id}`]}" alt="">
+                        <p class="weather">${response.list[i].weather[0].description}</p>
+                        <p class="degrees">${min}° ${max}°</p>
+                    </div>
+                    `
                     this.today.insertAdjacentHTML('beforeend', str);
                 }
+                this.mobile_version();
             })
-        this.today.innerHTML = '';
     }
 
     set_time_in_today(time) {
@@ -199,7 +213,48 @@ export default class Today {
         }
     }
 
-    set_city_nears() {}
+    set_city_nears() { }
+
+    mobile_today_hours(page = 0) {
+        for (let i = 0; i < 11; i++) {
+            this.today.children[i].style.display = 'none';
+        }
+        for (let i = page; i < page + 3; i++) {
+            this.today.children[i].style.display = null;
+        }
+        this.today.insertAdjacentHTML('beforebegin', `<div class="arrow"><img src="/result/img/chevron_right.svg" alt=""></div>`);
+    }
+
+    mobile_statements() {
+        let state = document.querySelector('.statements');
+        state.children[0].children[1].textContent = `${this.info.probability}%`;
+        state.children[1].children[1].textContent = `${this.info.humidity}%`;
+        state.children[2].children[1].textContent = `${this.info.wind} km/h`;
+    }
+
+    mobile_version() {
+        let str = `
+        <div class="statements">
+            <div class="chance">
+                <img src="./img/chance_icon.png" alt="">
+                <p>6%</p>
+            </div>
+            <div class="humidity">
+                <img src="./img/humidity_icon.png" alt="">
+                <p>12%</p>
+            </div>
+            <div class="wind">
+                <img src="./img/veterok.png" alt="">
+                <p>19 km/h</p>
+            </div>
+        </div>
+        `
+        if (window.outerWidth < 431) {
+            this.wrap.insertAdjacentHTML('afterbegin', str);
+            this.mobile_statements();
+            this.mobile_today_hours();
+        }
+    }
 
     init() {
         new Weather().click_today();
