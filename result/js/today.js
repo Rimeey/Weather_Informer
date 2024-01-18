@@ -9,6 +9,7 @@ export default class Today {
         this.today = document.querySelector('.today .hours');
         this.wrap = document.querySelector('.wrapper');
         this.current_city = 'Кременчук';
+        this.mobile_arrow = 0;
         this.info = {};
         this.image = {
             200: '11d.png',
@@ -135,7 +136,6 @@ export default class Today {
         fetch(url)
             .then(response => response.json())
             .then(response => {
-                console.dir(response)
                 this.info = {
                     'temp': +response.list[0].main.temp.toFixed(0),
                     'feels': +response.list[0].main.feels_like.toFixed(0),
@@ -146,7 +146,7 @@ export default class Today {
                     'id': +response.list[0].weather[0].id,
                     'humidity': response.list[0].main.humidity,
                     'probability': response.list[0].pop
-                    
+
                 };
                 this.set_head_info();
                 this.set_today(lat, lon);
@@ -175,7 +175,7 @@ export default class Today {
 
     set_today(lat, lon) {
         this.today.innerHTML = '';
-        this.today.previousElementSibling.previousElementSibling.children[1].textContent = this.get_date();
+        document.querySelector('.today .date .today_date').textContent = this.get_date();
         fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&cnt=13&lang=ua&units=metric&appid=${this.#api}`)
             .then(response => response.json())
             .then(response => {
@@ -215,24 +215,29 @@ export default class Today {
 
     set_city_nears() { }
 
-    mobile_today_hours(page = 0) {
-        for (let i = 0; i < 11; i++) {
+    mobile_today_hours() {
+        for (let i = 0; i != this.today.children.length-1; i++) {
             this.today.children[i].style.display = 'none';
         }
-        for (let i = page; i < page + 3; i++) {
+        for (let i = this.mobile_arrow; i < this.mobile_arrow + 3; i++) {
             this.today.children[i].style.display = null;
         }
+    }
+
+    mobile_today_hours_arrows() {
         this.today.insertAdjacentHTML('beforebegin', `<div class="arrow"><img src="/result/img/chevron_right.svg" alt=""></div>`);
+        document.querySelector('.arrow').addEventListener('click', function () {
+            this.mobile_arrow = this.mobile_arrow + 1;
+            if (this.mobile_arrow < 9) {
+                this.mobile_today_hours();
+            } else if (this.mobile_arrow > 8) {
+                this.mobile_arrow = 0;
+                this.mobile_today_hours();
+            }
+        }.bind(this));
     }
 
     mobile_statements() {
-        let state = document.querySelector('.statements');
-        state.children[0].children[1].textContent = `${this.info.probability}%`;
-        state.children[1].children[1].textContent = `${this.info.humidity}%`;
-        state.children[2].children[1].textContent = `${this.info.wind} km/h`;
-    }
-
-    mobile_version() {
         let str = `
         <div class="statements">
             <div class="chance">
@@ -249,10 +254,33 @@ export default class Today {
             </div>
         </div>
         `
+        this.wrap.insertAdjacentHTML('afterbegin', str);
+
+        let state = document.querySelector('.statements');
+        state.children[0].children[1].textContent = `${(this.info.probability * 100).toFixed(0)}%`;
+        state.children[1].children[1].textContent = `${this.info.humidity}%`;
+        state.children[2].children[1].textContent = `${this.info.wind} km/h`;
+    }
+
+    desktop() {
+        if(document.querySelector('.statements')) {
+            document.querySelector('.statements').remove();
+        }
+        if(document.querySelector('.arrow')) {
+            document.querySelector('.arrow').remove();
+        }
+        for (let i = 0; i != this.today.children.length - 1; i++) {
+            this.today.children[i].style.display = null;
+        }
+    }
+
+    mobile_version() {
         if (window.outerWidth < 431) {
-            this.wrap.insertAdjacentHTML('afterbegin', str);
             this.mobile_statements();
             this.mobile_today_hours();
+            this.mobile_today_hours_arrows();
+        } else if (window.outerWidth > 430) {
+            this.desktop();
         }
     }
 
