@@ -1,4 +1,5 @@
 import Weather from "./app.js";
+import Days from "./days.js";
 
 export default class Today {
     #api = '2d96a45db884057ffb45802af7c3a2e3';
@@ -90,6 +91,7 @@ export default class Today {
         } else {
             this.current_city = this.city.value
         }
+        new Days().current_city = this.current_city;
     }
 
     get_city_info() {
@@ -148,8 +150,17 @@ export default class Today {
                 };
                 this.set_head_info();
                 this.set_today(lat, lon);
-                this.set_city_nears();
+                this.get_city_nears(lat,lon);
             })
+    }
+
+    get_city_nears(lat,lon) {
+        let url = `https://api.openweathermap.org/data/2.5/find?lat=${lat}&lon=${lon}&cnt=4&lang=ua&units=metric&appid=${this.#api}`;
+        fetch(url)
+        .then(response => response.json())
+        .then(response => {
+            this.set_city_nears(response.list)
+        })
     }
 
     set_head_info() {
@@ -211,22 +222,22 @@ export default class Today {
         }
     }
 
-    set_city_nears() {
-        let str = `
+    set_city_nears(citys) {
+        this.city_nears.innerHTML = '';
+        citys.forEach(elem => {
+            let str = `
         <div class="city">
-            <div class="name">TEST</div>
-            <img src="/result/img/weather/01d.svg" alt="">
-            <div class="weather">TEST</div>
+            <div class="name">${elem.name}</div>
+            <img src="/result/img/weather/${this.image[`${elem.weather[0].id}`]}" alt="">
+            <div class="weather">${elem.weather[0].description}</div>
             <div class="degrees">
-            <p class="today_date">13.10</p>
-            <p class="deg">-5°-0°</p>
+                <p class="today_date">${this.get_date().split('.').slice(0, 2).join('.')}</p>
+                <p class="deg">${elem.main.temp_min.toFixed(0)}° ${elem.main.temp_min.toFixed(0)}°</p>
             </div>
         </div>
         `
         this.city_nears.insertAdjacentHTML('beforeend', str);
-        this.city_nears.insertAdjacentHTML('beforeend', str);
-        this.city_nears.insertAdjacentHTML('beforeend', str);
-        this.city_nears.insertAdjacentHTML('beforeend', str);
+        });
     }
 
     mobile_today_hours() {
@@ -333,12 +344,14 @@ export default class Today {
         this.wrap.style.backgroundImage = null;
         this.wrap.style.backgroundSize = null;
         this.wrap.style.display = null;
+        this.wrap.classList.replace('wrapper2', 'wrapper');
         this.wrap.innerHTML = str;
         this.city = document.querySelector('.search .area input');
         this.header_p = document.querySelectorAll('.header .left p');
         this.head_info = document.querySelector('.head_info');
         this.today = document.querySelector('.today .hours');
         this.city_nears = document.querySelector('.city_nears .results');
+        this.nears = document.querySelector('.city_nears .search input');
         this.get_city();
         this.city.addEventListener('change', this.get_city_info.bind(this));
     }

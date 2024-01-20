@@ -1,15 +1,38 @@
-.wrapper {
+.wrapper, .wrapper2 {
     background: linear-gradient(180deg, #062C43 0%, #064469 100%);
     padding: 18px 30px;
+    @import './today/search';
+}
+.wrapper {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 0.2fr 1fr 0.25fr 0.8fr;
     gap: 10px;
-    @import 'head_info';
-    @import 'search';
-    @import 'today';
-    @import 'city_nears';
-    @import 'statements';
+    @import './today/head_info';
+    @import './today/today';
+    @import './today/city_nears';
+    @import './today/statements';
+}
+.wrapper2 {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    .search {
+        max-width: 100%;
+        width: 100%;
+        .area {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 100fr 1fr;
+        }
+        .area:nth-child(3) {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+    }
+    @import './days/days6';
+    @import './days/table';
 }
 
 @media screen and (max-width: 1410px) {

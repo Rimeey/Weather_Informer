@@ -1,0 +1,77 @@
+.days6 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    img {
+        margin-top: 13px;
+        width: 114px;
+        height: 114px;
+    }
+
+    .day_week {
+        max-width: 220px;
+        max-height: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 27px;
+        padding: 25px 20px 10px 20px;
+        background-color: rgba($color: $color2, $alpha: 0.3);
+        border: 1px solid rgba($color: $color6, $alpha: 0.3);
+        border-radius: 20px;
+
+        .name,
+        .weather {
+            color: #FFF;
+            text-align: center;
+            font-family: Inter;
+            font-size: 24px;
+        }
+
+        .name {
+            font-weight: 600;
+            line-height: 17.435px;
+        }
+
+        .weather {
+            font-weight: 400;
+            line-height: 13.948px;
+            text-transform: capitalize;
+        }
+
+        .degrees {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 90px;
+
+            p {
+                color: $color7;
+                font-family: Inter;
+                font-size: 14px;
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1360px) {
+    .days6 {
+        gap: 15px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-items: center;
+    }
+}
+@media screen and (max-width: 760px) {
+    .days6 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media screen and (max-width: 600px) {
+    .days6 {
+        display: flex;
+        flex-direction: column;
+    }
+}
