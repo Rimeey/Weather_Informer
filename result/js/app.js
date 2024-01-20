@@ -12,6 +12,7 @@ export default class Weather {
     click_today() {
         this.header_p[1].style.color = null;
         this.header_p[0].style.color = '#C8A0FC';
+        this.today.init_html();
         this.today.get_city_info();
     }
     

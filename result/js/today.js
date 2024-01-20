@@ -3,10 +3,6 @@ import Weather from "./app.js";
 export default class Today {
     #api = '2d96a45db884057ffb45802af7c3a2e3';
     constructor() {
-        this.city = document.querySelector('.search .area input');
-        this.header_p = document.querySelectorAll('.header .left p');
-        this.head_info = document.querySelector('.head_info');
-        this.today = document.querySelector('.today .hours');
         this.wrap = document.querySelector('.wrapper');
         this.current_city = 'Кременчук';
         this.mobile_arrow = 0;
@@ -104,31 +100,33 @@ export default class Today {
             .then(response => {
                 this.get_weather(response[0].lat, response[0].lon);
             })
-            .catch(() => {
-                if (window.outerWidth > 431) {
-                    this.wrap.style.backgroundImage = 'url(/result/img/404.png)';
-                    this.wrap.style.backgroundRepeat = 'no-repeat';
-                } else {
-                    this.wrap.style.backgroundImage = 'url(/result/img/404_430.png)';
-                }
-                this.wrap.style.backgroundSize = '100%';
-                this.wrap.style.display = 'flex';
-                this.wrap.innerHTML = `
-                <div class="error">
-                    <img src="/result/img/404_2.png" alt="">
-                    <div class="text">
-                        <h1>OOPS!</h1>
-                        <p>${this.city.value} не знайдено</p>
-                        <p>Будь ласка введіть інше місце розташування</p>
-                    </div>
-                    <div class="button">
-                        <p>Повернутися на головну</p>
-                    </div>
-                </div>
-                `;
-                let btn = document.querySelector('.button');
-                btn.addEventListener('click', function () { location.reload() });
-            })
+            .catch(()=>{this.get_404()});
+    }
+
+    get_404() {
+        if (window.outerWidth > 431) {
+            this.wrap.style.backgroundImage = 'url(/result/img/404.png)';
+            this.wrap.style.backgroundRepeat = 'no-repeat';
+        } else {
+            this.wrap.style.backgroundImage = 'url(/result/img/404_430.png)';
+        }
+        this.wrap.style.backgroundSize = '100%';
+        this.wrap.style.display = 'flex';
+        this.wrap.innerHTML = `
+        <div class="error">
+            <img src="/result/img/404_2.png" alt="">
+            <div class="text">
+                <h1>OOPS!</h1>
+                <p>${this.city.value} не знайдено</p>
+                <p>Будь ласка введіть інше місце розташування</p>
+            </div>
+            <div class="button">
+                <p>Повернутися на головну</p>
+            </div>
+        </div>
+        `;
+        let btn = document.querySelector('.button');
+        btn.addEventListener('click', ()=>{new Weather().click_today()});
     }
 
     get_weather(lat, lon) {
@@ -213,7 +211,23 @@ export default class Today {
         }
     }
 
-    set_city_nears() { }
+    set_city_nears() {
+        let str = `
+        <div class="city">
+            <div class="name">TEST</div>
+            <img src="/result/img/weather/01d.svg" alt="">
+            <div class="weather">TEST</div>
+            <div class="degrees">
+            <p class="today_date">13.10</p>
+            <p class="deg">-5°-0°</p>
+            </div>
+        </div>
+        `
+        this.city_nears.insertAdjacentHTML('beforeend', str);
+        this.city_nears.insertAdjacentHTML('beforeend', str);
+        this.city_nears.insertAdjacentHTML('beforeend', str);
+        this.city_nears.insertAdjacentHTML('beforeend', str);
+    }
 
     mobile_today_hours() {
         for (let i = 0; i != this.today.children.length-1; i++) {
@@ -227,7 +241,7 @@ export default class Today {
     mobile_today_hours_arrows() {
         this.today.insertAdjacentHTML('beforebegin', `<div class="arrow"><img src="/result/img/chevron_right.svg" alt=""></div>`);
         document.querySelector('.arrow').addEventListener('click', function () {
-            this.mobile_arrow = this.mobile_arrow + 1;
+            this.mobile_arrow = this.mobile_arrow + 3;
             if (this.mobile_arrow < 9) {
                 this.mobile_today_hours();
             } else if (this.mobile_arrow > 8) {
@@ -284,8 +298,52 @@ export default class Today {
         }
     }
 
+    init_html() {
+        let str = `
+        <div class="head_info"></div>
+
+        <div class="search">
+            <div class="area">
+                <img src="/result/img/search.png" alt="">
+                <input type="text" placeholder="Кременчук">
+                <img src="/result/img/location_outline.png" alt="">
+            </div>
+            <div class="logo">
+                <img src="./img/logo_search.png" alt="">
+            </div>
+        </div>
+
+        <div class="today">
+            <div class="date">
+                <p class="text">Сьогоднi</p>
+                <p class="today_date">01.01.0001</p>
+            </div>
+            <div class="hr"></div>
+            <div class="hours"></div>
+        </div>
+
+        <div class="city_nears">
+            <div class="search">
+                <input type="text" placeholder="Міста поруч">
+                <img src="/result/img/search.png" alt="">
+            </div>
+            <div class="results"></div>
+        </div>
+        `
+        this.wrap.style.backgroundImage = null;
+        this.wrap.style.backgroundSize = null;
+        this.wrap.style.display = null;
+        this.wrap.innerHTML = str;
+        this.city = document.querySelector('.search .area input');
+        this.header_p = document.querySelectorAll('.header .left p');
+        this.head_info = document.querySelector('.head_info');
+        this.today = document.querySelector('.today .hours');
+        this.city_nears = document.querySelector('.city_nears .results');
+        this.get_city();
+        this.city.addEventListener('change', this.get_city_info.bind(this));
+    }
+
     init() {
         new Weather().click_today();
-        this.city.addEventListener('change', this.get_city_info.bind(this));
     }
 }
