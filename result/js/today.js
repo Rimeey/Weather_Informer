@@ -87,11 +87,10 @@ export default class Today {
 
     get_city() {
         if (this.city.value === '') {
-            this.current_city = this.city.placeholder
+            this.current_city = this.city.placeholder;
         } else {
-            this.current_city = this.city.value
+            this.current_city = this.city.value;
         }
-        new Days().current_city = this.current_city;
     }
 
     get_city_info() {
@@ -119,7 +118,7 @@ export default class Today {
             <img src="/result/img/404_2.png" alt="">
             <div class="text">
                 <h1>OOPS!</h1>
-                <p>${this.city.value} не знайдено</p>
+                <p>${this.current_city} не знайдено</p>
                 <p>Будь ласка введіть інше місце розташування</p>
             </div>
             <div class="button">
@@ -341,10 +340,13 @@ export default class Today {
             <div class="results"></div>
         </div>
         `
+        if(!this.wrap) {
+            this.wrap = document.querySelector('.wrapper2');
+        }
+        this.wrap.classList.replace('wrapper2', 'wrapper');
         this.wrap.style.backgroundImage = null;
         this.wrap.style.backgroundSize = null;
         this.wrap.style.display = null;
-        this.wrap.classList.replace('wrapper2', 'wrapper');
         this.wrap.innerHTML = str;
         this.city = document.querySelector('.search .area input');
         this.header_p = document.querySelectorAll('.header .left p');

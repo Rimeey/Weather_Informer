@@ -24,7 +24,7 @@ export default class Weather {
     }
 
     init() {
-        this.days.init();
+        this.today.init();
         this.header_p[0].style.color = '#C8A0FC';
         this.header_p[0].addEventListener('click', this.click_today.bind(this));
         this.header_p[1].addEventListener('click', this.click_days.bind(this));

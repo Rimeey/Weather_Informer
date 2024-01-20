@@ -6,7 +6,7 @@ export default class Days {
     constructor() {
         this.today = new Today;
         this.wrap = document.querySelector('.wrapper');
-        this.current_city = this.today.current_city;
+        this.current_city = 'Кременчук';
     }
 
     get_city() {
@@ -189,7 +189,6 @@ export default class Days {
         `;
         this.wrap.classList.replace('wrapper', 'wrapper2');
         this.wrap.innerHTML = str;
-
         this.days6 = document.querySelector('.days6');
         this.city = document.querySelector('.search .area input');
         this.city.addEventListener('change', this.get_city_info.bind(this));
