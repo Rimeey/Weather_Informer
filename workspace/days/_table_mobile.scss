@@ -1,0 +1,52 @@
+.day_click_mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgba($color: $color2, $alpha: 0.3);
+    border: 1px solid rgba($color: #fff, $alpha: 0.3);
+    border-radius: 20px;
+
+    .hour_element {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+
+        img {
+            height: 36px;
+            width: 36px;
+        }
+
+        .hour_description {
+            color: #FFF;
+            font-family: Inter;
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 16px;
+            width: 150px;
+            text-transform: capitalize;
+        }
+
+        .hour_time {
+            color: #FFF;
+            font-family: Inter;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+        }
+
+        .hour_min_max {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 5px;
+            width: 54px;
+            color: #F5F5F5;
+            font-family: Inter;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 20px;
+        }
+    }
+}

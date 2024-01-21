@@ -9,16 +9,16 @@ export default class Today {
         this.mobile_arrow = 0;
         this.info = {};
         this.image = {
-            200: '11d.png',
-            201: '11d.png',
-            202: '11d.png',
+            200: '12d.png',
+            201: '12d.png',
+            202: '12d.png',
             210: '11d.png',
             211: '11d.png',
             212: '11d.png',
             221: '11d.png',
-            230: '11d.png',
-            231: '11d.png',
-            232: '11d.png',
+            230: '12d.png',
+            231: '12d.png',
+            232: '12d.png',
             300: '09d.png',
             301: '09d.png',
             302: '09d.png',
@@ -28,42 +28,42 @@ export default class Today {
             313: '09d.png',
             314: '09d.png',
             321: '09d.png',
-            500: '10d.svg',
-            501: '10d.svg',
+            500: '08d.png',
+            501: '08d.png',
             502: '10d.svg',
             503: '10d.svg',
-            504: '10d.svg',
-            511: '13d.png',
+            504: '09d.png',
+            511: '14d.png',
             520: '09d.png',
             521: '09d.png',
             522: '09d.png',
             531: '09d.png',
             600: '13d.png',
             601: '13d.png',
-            602: '13d.png',
-            611: '13d.png',
-            612: '13d.png',
-            613: '13d.png',
-            615: '13d.png',
-            616: '13d.png',
-            620: '13d.png',
-            621: '13d.png',
-            622: '13d.png',
+            602: '15d.png',
+            611: '14d.png',
+            612: '14d.png',
+            613: '14d.png',
+            615: '14d.png',
+            616: '14d.png',
+            620: '14d.png',
+            621: '15d.png',
+            622: '15d.png',
             700: '01d.svg',
             711: '01d.svg',
             721: '01d.svg',
-            731: '01d.svg',
+            731: '50d.png',
             741: '01d.svg',
-            751: '01d.svg',
-            761: '01d.svg',
+            751: '50d.png',
+            761: '50d.png',
             762: '01d.svg',
-            771: '01d.svg',
-            781: '01d.svg',
+            771: '51d.png',
+            781: '51d.png',
             800: '01d.svg',
             801: '02d.png',
             802: '03d.png',
             803: '04d.svg',
-            804: '04d.svg'
+            804: '05d.png'
         }
     }
 
@@ -240,17 +240,17 @@ export default class Today {
     }
 
     mobile_today_hours() {
-        for (let i = 0; i != this.today.children.length-1; i++) {
+        for (let i = 0; i <= this.today.children.length-1; i++) {
             this.today.children[i].style.display = 'none';
         }
-        for (let i = this.mobile_arrow; i < this.mobile_arrow + 3; i++) {
+        for (let i = this.mobile_arrow; i < this.mobile_arrow + 4; i++) {
             this.today.children[i].style.display = null;
         }
     }
 
     mobile_today_hours_arrows() {
-        this.today.insertAdjacentHTML('beforebegin', `<div class="arrow"><img src="/result/img/chevron_right.svg" alt=""></div>`);
-        document.querySelector('.arrow').addEventListener('click', function () {
+        this.arrow.style.display = null;
+        this.arrow.addEventListener('click', function () {
             this.mobile_arrow = this.mobile_arrow + 3;
             if (this.mobile_arrow < 9) {
                 this.mobile_today_hours();
@@ -262,6 +262,9 @@ export default class Today {
     }
 
     mobile_statements() {
+        if(document.querySelector('.statements')) {
+            document.querySelector('.statements').remove();
+        }
         let str = `
         <div class="statements">
             <div class="chance">
@@ -324,6 +327,7 @@ export default class Today {
         </div>
 
         <div class="today">
+            <div class="arrow" style="display: none;"><img src="/result/img/chevron_right.svg" alt=""></div>
             <div class="date">
                 <p class="text">Сьогоднi</p>
                 <p class="today_date">01.01.0001</p>
@@ -334,7 +338,7 @@ export default class Today {
 
         <div class="city_nears">
             <div class="search">
-                <input type="text" placeholder="Міста поруч">
+                <input type="text" placeholder="Міста поруч" readonly>
                 <img src="/result/img/search.png" alt="">
             </div>
             <div class="results"></div>
@@ -348,12 +352,15 @@ export default class Today {
         this.wrap.style.backgroundSize = null;
         this.wrap.style.display = null;
         this.wrap.innerHTML = str;
+
         this.city = document.querySelector('.search .area input');
         this.header_p = document.querySelectorAll('.header .left p');
         this.head_info = document.querySelector('.head_info');
         this.today = document.querySelector('.today .hours');
         this.city_nears = document.querySelector('.city_nears .results');
         this.nears = document.querySelector('.city_nears .search input');
+        this.arrow = document.querySelector('.arrow');
+
         this.get_city();
         this.city.addEventListener('change', this.get_city_info.bind(this));
     }

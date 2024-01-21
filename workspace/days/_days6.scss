@@ -7,6 +7,7 @@
         margin-top: 13px;
         width: 114px;
         height: 114px;
+        cursor: pointer;
     }
 
     .day_week {
@@ -20,6 +21,7 @@
         background-color: rgba($color: $color2, $alpha: 0.3);
         border: 1px solid rgba($color: $color6, $alpha: 0.3);
         border-radius: 20px;
+        cursor: pointer;
 
         .name,
         .weather {
@@ -38,6 +40,7 @@
             font-weight: 400;
             line-height: 13.948px;
             text-transform: capitalize;
+            height: 100%;
         }
 
         .degrees {
@@ -64,14 +67,52 @@
         justify-items: center;
     }
 }
+
 @media screen and (max-width: 760px) {
     .days6 {
         grid-template-columns: 1fr 1fr;
     }
 }
+
 @media screen and (max-width: 600px) {
     .days6 {
         display: flex;
         flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .days6 {
+        flex-direction:row;
+        flex-wrap: wrap;
+        justify-content: center;
+        img {
+            margin-top: 0px;
+            width: 60px;
+            height: 60px;
+        }
+
+        .day_week {
+            width: 120px;
+            height: 165px;
+            gap: 8px;
+            padding: 12px 10px 8px 10px;
+
+            .name {
+                font-size: 14px;
+            }
+
+            .weather {
+                font-size: 12px;
+            }
+
+            .degrees {
+                gap: 25px;
+
+                p {
+                    font-size: 12px;
+                }
+            }
+        }
     }
 }

@@ -33,6 +33,8 @@
     }
     @import './days/days6';
     @import './days/table';
+    @import './days/statements';
+    @import './days/table_mobile';
 }
 
 @media screen and (max-width: 1410px) {
@@ -46,5 +48,14 @@
     .wrapper {
         padding: 18px 20px;
         grid-template-rows: 0.1fr 1.2fr 0.2fr 0.5fr 0.5fr;
+    }
+    .wrapper2 {
+        gap: 15px;
+        padding: 18px 20px;
+        .search {
+            .area {
+                display: flex;
+            }
+        }
     }
 }

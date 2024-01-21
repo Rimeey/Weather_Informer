@@ -11,12 +11,26 @@
         display: flex;
         gap: 15px;
         align-items: center;
+        p {
+            font-family: Inter;
+            font-size: 20px;
+            font-weight: 600;
+            color: $color7;
+            cursor: pointer;
+        }
     }
+}
 
-    p {
-        font-family: Inter;
-        font-size: 20px;
-        color: $color7;
-        cursor: pointer;
+@media screen and (max-width: 430px) {
+    .header {
+        .left {
+            img {
+                width: 44px;
+                height: 44px;
+            }
+            p {
+                font-size: 18px;
+            }
+        }
     }
 }

@@ -61,6 +61,8 @@
             .name {
                 font-weight: 600;
                 line-height: 17.435px;
+                width: 100px;
+                min-height: 35px;
             }
             .weather {
                 font-weight: 400;
@@ -104,12 +106,14 @@
             max-width: 390px;
             .city {
                 padding: 10px;
-                gap: 12px;
+                gap: 10px;
                 .degrees {
                     gap: 25px;
                 }
                 .name {
                     font-size: 14px;
+                    width: 100px;
+                    min-height: 35px;
                 }
                 .weather {
                     font-size: 12px;
