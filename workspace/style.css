@@ -930,7 +930,8 @@ body {
 }
 .wrapper2 .days6 .day_week .name {
   font-weight: 600;
-  line-height: 17.435px;
+  line-height: 15px;
+  height: 100%;
 }
 .wrapper2 .days6 .day_week .weather {
   font-weight: 400;
