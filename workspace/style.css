@@ -727,7 +727,7 @@ body {
 .wrapper .city_nears .results .city .name {
   font-weight: 600;
   line-height: 17.435px;
-  width: 100px;
+  width: 100%;
   min-height: 35px;
 }
 .wrapper .city_nears .results .city .weather {

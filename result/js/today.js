@@ -104,7 +104,7 @@ export default class Today {
             .catch(()=>{this.get_404()});
     }
 
-    get_404() {
+    get_404(text = this.current_city) {
         if (window.outerWidth > 431) {
             this.wrap.style.backgroundImage = 'url(/result/img/404.png)';
             this.wrap.style.backgroundRepeat = 'no-repeat';
@@ -118,7 +118,7 @@ export default class Today {
             <img src="/result/img/404_2.png" alt="">
             <div class="text">
                 <h1>OOPS!</h1>
-                <p>${this.current_city} не знайдено</p>
+                <p>${text} не знайдено</p>
                 <p>Будь ласка введіть інше місце розташування</p>
             </div>
             <div class="button">

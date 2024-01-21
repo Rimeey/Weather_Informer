@@ -6,7 +6,7 @@ export default class Days {
     constructor() {
         this.today = new Today;
         this.wrap = document.querySelector('.wrapper');
-        this.current_city = this.today.current_city;
+        this.current_city = 'test';
     }
 
     get_city() {
@@ -25,7 +25,7 @@ export default class Days {
             .then(response => {
                 this.get_weather_days(response[0].lat, response[0].lon);
             })
-            .catch(()=>{this.today.get_404()});
+            .catch(()=>{this.today.get_404(this.city.value)});
     }
 
     get_weather_days(lat,lon) {
