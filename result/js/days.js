@@ -6,7 +6,7 @@ export default class Days {
     constructor() {
         this.today = new Today;
         this.wrap = document.querySelector('.wrapper');
-        this.current_city = 'test';
+        this.current_city = this.today.current_city;
     }
 
     get_city() {
