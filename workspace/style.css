@@ -902,8 +902,8 @@ body {
   cursor: pointer;
 }
 .wrapper2 .days6 .day_week {
-  max-width: 220px;
-  max-height: 300px;
+  width: 220px;
+  height: 300px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -937,6 +937,8 @@ body {
   line-height: 20px;
   text-transform: capitalize;
   height: 100%;
+  max-height: 36px;
+  width: 100%;
 }
 .wrapper2 .days6 .day_week .degrees {
   display: -webkit-box;

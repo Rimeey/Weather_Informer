@@ -11,8 +11,8 @@
     }
 
     .day_week {
-        max-width: 220px;
-        max-height: 300px;
+        width: 220px;
+        height: 300px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -41,6 +41,8 @@
             line-height: 20px;
             text-transform: capitalize;
             height: 100%;
+            max-height: 36px;
+            width: 100%;
         }
 
         .degrees {
